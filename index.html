@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>METER MASTER PRO - ACCOUNT COLUMN UPDATED</title>
+    <title>METER MASTER PRO - ULTIMATE EDITION</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
     <style>
@@ -14,7 +14,18 @@
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; pointer-events: none; transition: all 0.3s; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
         
-        #reader { width: 96px; height: 96px; margin: 0 auto; border-radius: 20px; overflow: hidden; border: 3px solid #6366f1; background: #000; }
+        /* কিউআর স্ক্যানার বড় সাইজ */
+        #reader { 
+            width: 100%; 
+            max-width: 400px; 
+            aspect-ratio: 1/1;
+            margin: 0 auto; 
+            border-radius: 30px; 
+            overflow: hidden; 
+            border: 5px solid #6366f1; 
+            background: #000; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
         #reader video { object-fit: cover !important; width: 100% !important; height: 100% !important; }
 
         .stat-card { background: white; padding: 15px; border-radius: 25px; text-align: center; border-bottom: 4px solid #6366f1; }
@@ -23,6 +34,7 @@
             .no-print { display: none !important; }
             body { background: white !important; }
             .print-area { display: block !important; width: 100%; border: none; }
+            table { font-size: 10px; }
         }
     </style>
 </head>
@@ -38,10 +50,10 @@
     <div id="mainApp" class="hidden-app max-w-7xl mx-auto space-y-6">
         
         <div class="flex flex-col md:flex-row justify-between items-center bg-white p-6 rounded-[35px] shadow-lg border-b-4 border-indigo-600 no-print">
-            <div><h1 class="text-xl font-black text-indigo-900 italic uppercase">Meter Master Pro</h1><p id="liveDate" class="text-[10px] text-slate-400 font-bold"></p></div>
+            <div><h1 class="text-xl font-black text-indigo-900 italic uppercase tracking-tighter">Meter Master Pro</h1><p id="liveDate" class="text-[10px] text-slate-400 font-bold uppercase"></p></div>
             <div class="flex items-center gap-4 mt-4 md:mt-0">
                 <div id="liveClock" class="bg-indigo-600 px-6 py-2 rounded-2xl text-white font-mono font-bold text-lg shadow-lg">00:00:00</div>
-                <button onclick="logout()" class="bg-red-50 text-red-500 px-5 py-2 rounded-2xl font-bold text-xs hover:bg-red-500 hover:text-white">🔓 লগআউট</button>
+                <button onclick="logout()" class="bg-red-50 text-red-500 px-5 py-2 rounded-2xl font-bold text-xs hover:bg-red-500 hover:text-white transition-all">🔓 লগআউট</button>
             </div>
         </div>
 
@@ -53,14 +65,14 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 no-print">
-            <div class="bg-white p-6 rounded-[40px] shadow-lg flex flex-col items-center justify-center border">
+            <div class="bg-white p-6 rounded-[45px] shadow-xl flex flex-col items-center justify-center border-2 border-indigo-50">
                 <div id="reader"></div>
-                <p class="text-[9px] mt-2 font-bold text-slate-400">1x1 INCH SCANNER</p>
+                <p class="text-[11px] mt-4 font-black text-indigo-600 uppercase tracking-widest animate-pulse">📢 SCAN QR CODE NOW</p>
             </div>
             
-            <div class="bg-white p-8 rounded-[40px] shadow-2xl border-t-8 border-indigo-600 space-y-4">
+            <div class="bg-white p-8 rounded-[45px] shadow-2xl border-t-8 border-indigo-600 space-y-4">
                 <input type="text" id="searchInput" oninput="findCustomer()" placeholder="🔍 মিটার বা একাউন্ট লিখুন..." class="w-full p-6 bg-slate-50 border-2 border-slate-100 rounded-[30px] font-black text-indigo-900 text-center text-2xl outline-none focus:border-indigo-400 shadow-inner">
-                <div id="custInfoText" class="p-4 bg-indigo-50/50 rounded-[25px] border-2 border-dashed border-indigo-200 text-center font-black text-indigo-800 italic">কাস্টমার খুঁজুন...</div>
+                <div id="custInfoText" class="p-5 bg-indigo-50/50 rounded-[25px] border-2 border-dashed border-indigo-200 text-center font-black text-indigo-800 italic text-sm">কাস্টমার খুঁজুন...</div>
                 
                 <div class="grid grid-cols-2 gap-4">
                     <div class="text-center"><label class="text-[9px] font-bold text-slate-400 uppercase">আগের রিডিং</label><input type="number" id="prevReading" readonly class="w-full p-4 bg-slate-100 border rounded-2xl text-center text-slate-500 font-bold"></div>
@@ -76,7 +88,7 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-[40px] shadow-lg overflow-hidden border border-t-8 border-emerald-500 print-area">
+        <div class="bg-white rounded-[45px] shadow-lg overflow-hidden border border-t-8 border-emerald-500 print-area">
              <div class="p-6 bg-white border-b no-print"><h3 class="font-black text-emerald-800 uppercase italic text-sm">📊 আজকের এন্ট্রি রিপোর্ট</h3></div>
              <div class="overflow-x-auto">
                 <table class="w-full text-left text-[11px]">
@@ -96,10 +108,10 @@
              </div>
         </div>
 
-        <div class="bg-white rounded-[40px] shadow-lg overflow-hidden border border-t-8 border-slate-900 mb-20 no-print">
+        <div class="bg-white rounded-[45px] shadow-lg overflow-hidden border border-t-8 border-slate-900 mb-20 no-print">
              <div class="p-6 bg-slate-900 text-white flex justify-between items-center">
                 <h3 class="font-black uppercase italic text-sm">👥 মাস্টার লিস্ট</h3>
-                <input type="text" id="masterSearch" onkeyup="refreshUI()" placeholder="🔍 নাম বা মিটার দিয়ে খুঁজুন..." class="p-3 bg-white/10 border border-white/20 rounded-xl font-bold text-xs w-1/3 outline-none">
+                <input type="text" id="masterSearch" onkeyup="refreshUI()" placeholder="🔍 খুঁজুন..." class="p-3 bg-white/10 border border-white/20 rounded-xl font-bold text-xs w-1/3 outline-none text-white">
              </div>
              <div class="overflow-x-auto">
                 <table class="w-full text-left text-[11px]">
@@ -124,7 +136,7 @@
     </div>
 
     <div id="entryEditModal" class="modal-overlay no-print">
-        <div class="bg-white w-full max-w-md rounded-[40px] shadow-2xl p-10 border-t-8 border-amber-500">
+        <div class="bg-white w-full max-w-md rounded-[45px] shadow-2xl p-10 border-t-8 border-amber-500">
             <p class="text-xl font-black text-amber-600 mb-8 uppercase italic">🖊️ এন্ট্রি সংশোধন</p>
             <input type="hidden" id="editEntryIndex">
             <div class="space-y-4">
@@ -146,7 +158,7 @@
     </div>
 
     <div id="masterModal" class="modal-overlay no-print">
-        <div class="bg-white w-full max-w-md rounded-[40px] shadow-2xl p-10 border-t-8 border-indigo-600">
+        <div class="bg-white w-full max-w-md rounded-[45px] shadow-2xl p-10 border-t-8 border-indigo-600">
             <p class="text-xl font-black text-indigo-800 mb-8 uppercase italic">🖊️ মাস্টার ডাটা সংশোধন</p>
             <input type="hidden" id="editMIndex">
             <div class="space-y-4">
@@ -176,8 +188,16 @@
 
         function startApp() {
             updateClock(); setInterval(updateClock, 1000); refreshUI();
-            const scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: { width: 80, height: 80 } });
-            scanner.render((text) => { document.getElementById('searchInput').value = text; findCustomer(); });
+            const scanner = new Html5QrcodeScanner("reader", { 
+                fps: 20, 
+                qrbox: { width: 280, height: 280 },
+                aspectRatio: 1.0
+            });
+            scanner.render((text) => { 
+                document.getElementById('searchInput').value = text; 
+                findCustomer(); 
+                document.getElementById('currReading').focus();
+            });
         }
 
         function updateClock() {
@@ -192,7 +212,7 @@
             const infoText = document.getElementById('custInfoText');
             if (selectedIdx !== -1) {
                 const c = masterList[selectedIdx];
-                infoText.innerHTML = `<span class="text-indigo-900">👤 ${c.name}</span> <br> <span class="text-[10px] text-indigo-500">ACC: ${c.acc} | METER: ${c.meter}</span>`;
+                infoText.innerHTML = `<span class="text-indigo-900 text-lg">👤 ${c.name}</span> <br> <span class="text-[11px] text-indigo-500">ACCOUNT: ${c.acc} | METER: ${c.meter}</span>`;
                 document.getElementById('prevReading').value = c.prev;
             } else { infoText.innerText = "কাস্টমার খুঁজুন..."; document.getElementById('prevReading').value = ""; }
         }
@@ -202,14 +222,13 @@
             const eBody = document.getElementById('entryTable');
             const mSearch = document.getElementById('masterSearch').value.toUpperCase();
 
-            // মাস্টার লিস্ট রেন্ডার (একাউন্ট নম্বর সহ)
             const filteredMaster = masterList.filter(c => (c.name && c.name.toUpperCase().includes(mSearch)) || (c.meter && c.meter.toString().includes(mSearch)) || (c.acc && c.acc.toString().includes(mSearch)));
             const mPages = Math.ceil(filteredMaster.length / itemsPerPage) || 1;
             mBody.innerHTML = '';
             filteredMaster.slice((masterCurrentPage-1)*itemsPerPage, masterCurrentPage*itemsPerPage).forEach((c) => {
                 const realIdx = masterList.indexOf(c);
                 mBody.innerHTML += `<tr class="border-b">
-                    <td class="p-5 font-bold text-slate-500">${c.acc || 'N/A'}</td>
+                    <td class="p-5 font-bold text-slate-500 italic">${c.acc || 'N/A'}</td>
                     <td class="p-5 font-bold text-indigo-700">${c.meter}</td>
                     <td class="p-5 font-bold uppercase">${c.name}</td>
                     <td class="p-5"><span class="${c.status==='Inactive'?'text-red-500':'text-green-500'} font-black text-[9px] uppercase">${c.status || 'Active'}</span></td>
@@ -220,11 +239,10 @@
                 </tr>`;
             });
 
-            // রিপোর্ট রেন্ডার (একাউন্ট নম্বর সহ)
             eBody.innerHTML = '';
             dailyEntries.forEach((e, i) => {
                 eBody.innerHTML += `<tr class="border-b">
-                    <td class="p-5 font-bold text-slate-500">${e.acc || 'N/A'}</td>
+                    <td class="p-5 font-bold text-slate-500 italic">${e.acc || 'N/A'}</td>
                     <td class="p-5 font-bold text-indigo-600">${e.meter}</td>
                     <td class="p-5 font-bold uppercase">${e.name}</td>
                     <td class="p-5 text-center text-slate-400 font-bold">${e.prev}</td>
@@ -244,7 +262,6 @@
             document.getElementById('masterPageInfo').innerText = `Page ${masterCurrentPage} / ${mPages}`;
         }
 
-        // --- এন্ট্রি ইডিট ---
         function editEntry(idx) {
             const e = dailyEntries[idx];
             document.getElementById('editEntryIndex').value = idx;
@@ -260,13 +277,12 @@
             const i = document.getElementById('editEntryIndex').value;
             const p = parseFloat(document.getElementById('editEntryPrev').value);
             const c = parseFloat(document.getElementById('editEntryCurr').value);
-            if(c < p) return alert("বর্তমান রিডিং কম হতে পারে না!");
+            if(c < p) return alert("রিডিং কম হতে পারে না!");
             dailyEntries[i].prev = p; dailyEntries[i].curr = c; dailyEntries[i].unit = (c - p).toFixed(2);
             localStorage.setItem('dailyEntries', JSON.stringify(dailyEntries));
             toggleEntryModal(); refreshUI();
         }
 
-        // --- মাস্টার ইডিট ---
         function toggleStatus(idx) { masterList[idx].status = masterList[idx].status === 'Inactive' ? 'Active' : 'Inactive'; saveMaster(); }
         function editCustomer(idx) {
             const c = masterList[idx];
@@ -303,7 +319,6 @@
         function changePage(delta) { masterCurrentPage += delta; refreshUI(); }
         function logout() { localStorage.removeItem('isLoggedIn'); location.reload(); }
 
-        // গুগল শীট ফাংশন (URL দিলে কাজ করবে)
         async function syncToGoogleSheet() {
             const unsynced = dailyEntries.filter(e => !e.synced);
             if(!unsynced.length) return alert("নতুন ডাটা নেই!");
